@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Admin',
     'SuperAdmin',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -77,8 +78,13 @@ WSGI_APPLICATION = 'ascentproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django_cockroachdb',
+        'NAME': 'grc',
+        'USER': 'gtpl',
+        'PASSWORD': 's165w4pnPPJEemAhQEXc3w',
+        'HOST': 'meteor-dunnart-5620.7s5.aws-ap-south-1.cockroachlabs.cloud',
+        'PORT': '26257',
+        # 'sslmode': 'disable'
     }
 }
 
