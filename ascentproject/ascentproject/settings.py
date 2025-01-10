@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'Admin',
     'SuperAdmin',
     'rest_framework',
+    'users',
+    'products',
 ]
 
 MIDDLEWARE = [
