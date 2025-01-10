@@ -2,18 +2,18 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from .models import Admin, Entity
+from .models import User, Entities
 from .serializers import AdminSerializer, EntitySerializer
 
 class AdminViewSet(viewsets.ModelViewSet):
-    queryset = Admin.objects.all()
+    queryset = User.objects.all()
     serializer_class = AdminSerializer
 
     @action(detail=False, methods=['post'])
     def login(self, request):
         email = request.data.get('email_id')
         password = request.data.get('password')
-        admin = Admin.objects.filter(email_id=email, password=password).first()
+        admin = User.objects.filter(email_id=email, password=password).first()
         if admin:
             serializer = self.get_serializer(admin)
             return Response(serializer.data)
@@ -29,5 +29,5 @@ class AdminViewSet(viewsets.ModelViewSet):
         return Response({'message': 'Entities assigned successfully!'})
 
 class EntityViewSet(viewsets.ModelViewSet):
-    queryset = Entity.objects.all()
+    queryset = Entities.objects.all()
     serializer_class = EntitySerializer
