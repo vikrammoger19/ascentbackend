@@ -191,3 +191,23 @@ def reset_password(request):
             return JsonResponse({'error': f"An error occurred: {str(e)}"}, status=400)
 
     return JsonResponse({'message': 'Invalid HTTP method'}, status=405)
+
+
+def fetch_all_users(request):
+    if request.method == "GET":
+        try:
+            users = User.objects.all()  # Fetch all users from the database
+            user_list = []
+            for user in users:
+                user_list.append({
+                    "user_id": user.user_id,
+                    "name": user.name,
+                    "email": user.email,
+                    "user_type": user.user_type,
+                    "assigned_entities": user.assigned_entities,
+                    "phone_number": user.phone_number,
+                })
+            return JsonResponse({"users": user_list}, status=200)
+        except Exception as e:
+            return JsonResponse({"error": f"An error occurred: {str(e)}"}, status=500)
+    return JsonResponse({"message": "Invalid HTTP method"}, status=405)

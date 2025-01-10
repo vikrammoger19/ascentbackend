@@ -16,10 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from entity import views
+
+router = DefaultRouter()
+router.register(r'organizations', views.OrganizationViewSet)
+router.register(r'entities', views.EntityViewSet)
 
 urlpatterns = [
     path('adminapp/', admin.site.urls),
     path('admindash/',include('Admin.urls')),
     path('api/',include('products.urls')),
-    path('api/',include('users.urls'))
+    path('api/',include('users.urls')),
+    path('api/', include(router.urls)),
+    path('api/',include('Roles.urls')),
+    path('api/entities/entities-by-org/<str:pk>/', views.EntityViewSet.as_view({'get': 'entities_by_org'})),
 ]
